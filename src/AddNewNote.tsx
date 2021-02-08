@@ -3,12 +3,11 @@ import { useNotesStore } from './stores/NotesContext';
 
 const AddNewNote: FC = () => {
   const notesStore = useNotesStore();
-  const [newNote, setNewNote] = useState<string>(`${notesStore.notes.length}`)
+  const [newNote, setNewNote] = useState<string>(`${notesStore.notes.length + 1}`)
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div>
-      <p>AddNewNote notes length = {notesStore.notes.length}</p>
       <input
         ref={inputRef}
         type="text"
@@ -19,6 +18,7 @@ const AddNewNote: FC = () => {
       <button onClick={
         () => {
           notesStore.addNote(newNote);
+          setNewNote(`${notesStore.notes.length + 1}`);
           inputRef.current!.focus();
         }
       }>Add new note</button>

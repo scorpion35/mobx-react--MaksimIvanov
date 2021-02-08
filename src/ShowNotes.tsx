@@ -1,23 +1,23 @@
 import { observer } from 'mobx-react';
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import AddNewNote from './AddNewNote'
-import { useNotesStore } from './stores/NotesContext'
+import { NotesContext } from './stores/NotesContext'
 import { INote } from './stores/NotesStore';
 
 const ShowNotes: FC = observer(() => {
-  const notesStore = useNotesStore();
+  const notesStoreContext = useContext(NotesContext);
 
   return <>
-          <ul>
-            {notesStore.notes.map((note: INote) => 
-              {
-                console.log(note);
-                return <li key={note.id}>{note.text}</li>;
-              }
-            )}
-          </ul>
-          <AddNewNote />
-        </>;
-})
+  <p>Show Notes Component = {notesStoreContext.notes.length}</p>
+  <ul>
+    {notesStoreContext.notes.map((note: INote) => 
+      {
+        return <li key={note.id}>{note.text}</li>;
+      }
+    )}
+  </ul>
+  <AddNewNote />
+</>;
+});
 
 export default ShowNotes;
